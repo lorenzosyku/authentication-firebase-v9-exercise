@@ -1,5 +1,5 @@
 import "./App.css";
-import { signUp, useAuth, logout } from "./firebase";
+import { signUp, useAuth, logout, login } from "./firebase";
 import { useRef, useState } from "react";
 
 function App() {
@@ -12,6 +12,18 @@ function App() {
     try {
       setLoading(true);
       await signUp(emailRef.current.value, passwordRef.current.value);
+    } catch (error) {
+      alert("error");
+    }
+
+    setLoading(false);
+    
+  };
+
+  const handleLogin = async () => {
+    try {
+      setLoading(true);
+      await login(emailRef.current.value, passwordRef.current.value);
     } catch (error) {
       alert("error");
     }
@@ -40,6 +52,9 @@ function App() {
         <input ref={passwordRef} type="passwordrun" placeholder="password" />
         <button disabled={loading || currentUser} onClick={handleSubmit}>
           signup
+        </button>
+        <button disabled={loading || currentUser} onClick={handleLogin}>
+          login
         </button>
         <button disabled={loading || !currentUser} onClick={handleLogout}>logout</button>
       </div>
