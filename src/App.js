@@ -1,23 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { signUp } from "./firebase";
+import { useRef, useState } from "react";
 
 function App() {
+
+  const emailRef = useRef()
+  const passwordRef = useRef()
+
+  const handleSubmit = async () => {
+    await signUp(emailRef.current.value, passwordRef.current.value);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="">
+      <div className="">
+        <input ref={emailRef} placeholder="email" />
+        <input ref={passwordRef} type="passwordrun" placeholder="password" />
+        <button onClick={handleSubmit}>signup</button>
+      </div>
     </div>
   );
 }
