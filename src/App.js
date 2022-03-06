@@ -1,5 +1,5 @@
 import "./App.css";
-import { signUp, useAuth, logout, login } from "./firebase";
+import { signUp, useAuth, logout, login, signInWithEmailAndPassword, auth } from "./firebase";
 import { useRef, useState } from "react";
 
 function App() {
@@ -17,19 +17,21 @@ function App() {
     }
 
     setLoading(false);
-    
   };
 
-  const handleLogin = async () => {
-    try {
-      setLoading(true);
-      await login(emailRef.current.value, passwordRef.current.value);
-    } catch (error) {
-      alert("error");
-    }
-
-    setLoading(false);
-    
+  const handleLogin = (e) => {
+    e.preventDefault();
+    signInWithEmailAndPassword(
+      auth,
+      emailRef.current.value,
+      passwordRef.current.value
+    )
+      .then((user) => {
+        console.log(user);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const handleLogout = async () => {
@@ -56,7 +58,9 @@ function App() {
         <button disabled={loading || currentUser} onClick={handleLogin}>
           login
         </button>
-        <button disabled={loading || !currentUser} onClick={handleLogout}>logout</button>
+        <button disabled={loading || !currentUser} onClick={handleLogout}>
+          logout
+        </button>
       </div>
     </div>
   );

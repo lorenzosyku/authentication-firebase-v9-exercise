@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_API_KEY,
+  apiKey: 'AIzaSyDi47tVlQWHDN2L76dN0JQGftMio9Gxnh0',
   authDomain: "authentication-v9-firebase.firebaseapp.com",
   projectId: "authentication-v9-firebase",
   storageBucket: "authentication-v9-firebase.appspot.com",
@@ -17,7 +17,9 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const auth = getAuth();
+const auth = getAuth(app);
+
+export {auth, signInWithEmailAndPassword}
 
 //login
 export function login(email, password) {
